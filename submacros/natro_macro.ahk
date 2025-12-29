@@ -121,6 +121,79 @@ if (A_ScreenDPI != 96)
 	Right click on your Desktop -> Click 'Display Settings' -> Under 'Scale & Layout', set Scale to 100% -> Close and Restart Roblox before starting the macro.
 	)", "WARNING!!", 0x1030 " T60"
 
+
+
+;///////////////////////////////////////////////////////////////////////////////
+;WebView2 GUI
+;///////////////////////////////////////////////////////////////////////////////
+;Environment Controls
+;///////////////////////////////////////////////////////////////////////////////////////////
+#SingleInstance Force
+#Include ../BootstrapGUI/WebViewToo_Resources/WebView2.ahk
+#Include ../BootstrapGUI/WebViewToo_Resources/WebViewToo.ahk
+
+ScriptPID := DllCall("GetCurrentProcessId")
+GroupAdd("ScriptGroup", "ahk_pid" ScriptPID)
+;///////////////////////////////////////////////////////////////////////////////////////////
+
+;Create the WebviewWindow/GUI
+;///////////////////////////////////////////////////////////////////////////////////////////
+MyWindow := WebviewWindow()
+MyWindow.OnEvent("Close", (*) => ExitApp())
+MyWindow.Load("BootstrapGUI/index.html")
+MyWindow.Debug()
+MyWindow.AddHostObjectToScript("ahkButtonClick", {func:WebButtonClickEvent})
+MyWindow.AddHostObjectToScript("ahkCopyGlyphCode", {func:CopyGlyphCodeEvent})
+MyWindow.AddHostObjectToScript("ahkFormSubmit", {func:FormSubmitEvent})
+MyWindow.Show("w1050 h650 Center", "Natro Macro (Gummy Boot(strap) Edition - CONCEPT)")
+;///////////////////////////////////////////////////////////////////////////////////////////
+
+;Hotkeys
+;///////////////////////////////////////////////////////////////////////////////////////////
+#HotIf WinActive("ahk_group ScriptGroup")
+F1:: {
+    MsgBox(MyWindow.Title)
+    MyWindow.Title := "New Title!"
+    MsgBox(MyWindow.Title)
+}
+
+F2:: {
+    MyWindow.PostWebMessageAsString("Hello?")
+}
+#HotIf
+;///////////////////////////////////////////////////////////////////////////////////////////
+
+;Web Functions
+;///////////////////////////////////////////////////////////////////////////////////////////
+WebButtonClickEvent(button) {
+    MsgBox(button)
+	SetTimer start, -50
+}
+
+CopyGlyphCodeEvent(title) {
+	GlyphCode := "<span class='glyphicon glyphicon-" title "' aria-hidden='true'></span>"
+	A_Clipboard := GlyphCode
+	ClipWait(2)
+	MsgBox(GlyphCode, "OuterHTML Copied to Clipboard")
+}
+
+
+FormSubmitEvent(source, form) {
+    if (source = "webpage") {
+        SetTimer((*) => FormSubmitEvent("ahk", form), -1)
+    }
+    else {
+        formValues := MyWindow.GetFormData(form)
+        MsgBox(formValues["inputEmail"])
+        MsgBox(WebviewWindow.forEach(formValues, form))
+    }
+}
+;///////////////////////////////////////////////////////////////////////////////////////////
+; END WebView2 GUI
+;///////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; CREATE SETTINGS FOLDERS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -1,0 +1,101 @@
+@media (min-width: 768px) {
+  *, ::after, ::before {
+    box-sizing: border-box;
+  }
+}
+
+.title-btn {
+  padding: 0.35em 1.0em;
+  cursor: pointer;
+  vertical-align: bottom;
+  font-family: Webdings;
+  font-size: 11pt;
+}
+
+#GatherTabTemplate {
+  min-height: 400px;
+}
+
+#field-icon-buttons {
+  overflow: hidden !important;
+}
+
+.title-btn:hover {
+  background: rgba(0, 0, 0, .2);
+}
+
+.title-btn-close:hover {
+  background: #dc3545;
+}
+
+#fieldMapHolder {
+  display: inline-block;
+  position: relative;
+}
+
+img[id^='snapTarget'] {
+  position: absolute;
+  z-index: 1;
+}
+
+svg[id^='pathSVG'] {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 2;
+}
+
+div[id^='pathBall'] {
+  position: absolute;
+  z-index: 3;
+  top: 0px;
+  left: 0px;
+  width: 20px;
+  height: 20px;
+  margin: 0 0px;
+  border-radius: 50%;
+  background: rgb(221, 195, 50);
+}
+
+@media (min-width: 768px) {
+  #sidebar-tabitems {
+    margin-top: 10px;
+  }
+}
+
+/* old dropdown */
+
+.box100x100 .ms-dd {
+  width: 100px !important;
+  height: 100px !important;
+}
+
+.box100x100 .ms-dd .ms-dd-header .option-selected {
+  width: 100px !important;
+  height: 100px !important;
+  text-align: center !important;
+  padding-right: 10px;
+  font-weight: unset;
+}
+
+.box100x100 .option-selected .ms-dd-option-content {
+  display: inline-block;
+}
+
+.box100x100 .ms-dd .ms-header-middle-content, .ms-dd .ms-middle {
+  display: block !important;
+}
+
+/* new dropdown */
+
+.box100x100 .bootstrap-select .dropdown-toggle .filter-option {
+  text-align: center !important;
+  text-wrap: wrap !important;
+  font-size: smaller !important;
+}
+
+.box100x100 .bootstrap-select button {
+  width: 100px !important;
+  height: 100px !important;
+}
+
